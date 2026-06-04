@@ -61,7 +61,7 @@ job_search <-
 
 # base layer: ggplot
 ggplot(
-  # data: job_search
+  # df: job_search
   data = job_search,
   # x-axis : time spent on outside engagements
   # y-axis : time spent on job search
@@ -79,6 +79,58 @@ ggplot(
   # customizing font
   theme(text = element_text(family = "garamond")) +
   # getting rid of gridlines
+  theme(panel.grid.major = element_blank(),
+         panel.grid.minor = element_blank())
+```
+
+## 3b. Visualization #2: Ridgeline plot
+
+### Wrangling data
+```{r}
+#| label: wrangling-data-for-ridgeline
+
+# creating new object
+job_search_clean <- 
+  # df: job_search
+  job_search |>
+  # mutating data
+  mutate(
+    # changing values to be words in stress column
+    stress = case_when (
+    stress == "0" ~ "Zero",
+    stress == "1" ~ "One",
+    stress == "2" ~ "Two",
+    stress == "3" ~ "Three",
+    stress == "4" ~ "Four",
+    stress == "5" ~ "Five"))
+
+```
+
+### Creating plot
+
+```{r}
+#| label: second-visualization
+
+# base layer: ggplot
+ggplot(
+  # df: job_search_clean
+  data = job_search_clean,
+  # x-axis: time spent on job search
+  # y-axis: level of stress
+  # filling by x-axis value
+       mapping = aes(x = job_search,
+                     y = stress,
+                     fill = after_stat(x))) +
+  # first layer: ridgeline plot
+  geom_density_ridges_gradient() +
+  # coloring ridgeline by gradient corresponding to x-axis value
+     scale_fill_viridis_c(option = "turbo", name = "Minutes") +
+  labs(title = "Job search differs by level of stress",
+       x = "Time spent on job search (minutes)",
+       y = "Level of stress"
+       ) +
+  theme_linedraw() +
+  theme(text = element_text(family = "garamond")) +
   theme(panel.grid.major = element_blank(),
          panel.grid.minor = element_blank())
 ```
