@@ -30,6 +30,56 @@ font_add_google("EB Garamond", "garamond")
 # ensures text will be automatically rendered on new devices
 showtext_auto()
 
+# loading ggplot2 library
 library(ggplot2)
+```
+
+#
+# 3. Visualizations
+
+## 3a. Visualization #1: Scatterplot
+
+### Reading data
+
+```{r}
+#| label: reading-data
+
+# creating new object
+job_search <- 
+  # reading csv from data file
+  read_csv(
+    # directing function to data file
+    here("data", 
+         # csv: personal-data
+         "personal-data.csv"))
+```
+
+### Creating plot
+
+```{r}
+#| label: first-visualization
+
+# base layer: ggplot
+ggplot(
+  # data: job_search
+  data = job_search,
+  # x-axis : time spent on outside engagements
+  # y-axis : time spent on job search
+  mapping = aes(x = outside_eng,
+                                      y = job_search)) +
+  # first layer: scatterplot
+  geom_point(color = "turquoise4",
+              size = 3) +
+  # changing title and axes' titles
+  labs(title = "Affect of outside engagements on job search",
+       x = "Time spent at work or school (hours)",
+       y = "Time spent on job search (min)") +
+  # customizing theme
+  theme_linedraw() +
+  # customizing font
+  theme(text = element_text(family = "garamond")) +
+  # getting rid of gridlines
+  theme(panel.grid.major = element_blank(),
+         panel.grid.minor = element_blank())
 ```
 
