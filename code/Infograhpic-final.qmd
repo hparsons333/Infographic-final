@@ -158,6 +158,28 @@ names(job_search_corr) <- c("Job search", "Outside engagements", "Stress", "Slee
 ### Creating plot
 
 ```{r}
+#| label: third-visualization
 
+# creating new object
+colour_set <- 
+  # choosing colors to be used in correlogram
+  colorRampPalette(colors = c("#8B0000",  "#CD0000", "#BF3EFF", "#009ACD", "#00688B"))
+
+# base layer: correlogram
+corrplot(
+  # correlation plot function
+  cor(
+    # df: job_search_corr
+    job_search_corr),
+  # changing title
+         title = "Comparing effect of all variables",
+  # using only lower half of correlgram
+         type = "lower",
+  # changing text size
+         tl.cex = 0.7,
+  # changing text color
+         tl.col = "darkblue",
+  # changing colors used in plot
+         col = colour_set(100))
 ```
 
