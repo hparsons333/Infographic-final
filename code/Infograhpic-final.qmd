@@ -125,13 +125,39 @@ ggplot(
   geom_density_ridges_gradient() +
   # coloring ridgeline by gradient corresponding to x-axis value
      scale_fill_viridis_c(option = "turbo", name = "Minutes") +
+  # changing title and axes' titles
   labs(title = "Job search differs by level of stress",
        x = "Time spent on job search (minutes)",
        y = "Level of stress"
        ) +
+  # changing theme
   theme_linedraw() +
+  # changing font
   theme(text = element_text(family = "garamond")) +
+  # getting rid of gridlines
   theme(panel.grid.major = element_blank(),
          panel.grid.minor = element_blank())
+```
+
+## 3c. Visualization #3: Correlogram
+
+### Wrangling data
+```{r}
+#| label: wrangling-data-for-correlogram
+
+# creating new object
+job_search_corr <- 
+  # df: job_search
+  job_search |>
+  # getting rid of date column
+  select(job_search, outside_eng, stress, sleep, social_media, day_to_grad)
+# changing names of columns 
+names(job_search_corr) <- c("Job search", "Outside engagements", "Stress", "Sleep", "Social media usage", "Days till graduation")
+```
+
+### Creating plot
+
+```{r}
+
 ```
 
