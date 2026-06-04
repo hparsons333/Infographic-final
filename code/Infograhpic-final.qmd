@@ -1,0 +1,35 @@
+---
+title: "Infographic"
+author: "Helena Parsons"
+format: pdf
+date: "2026-06-04"
+---
+
+# 1. Loading packages
+
+```{r}
+#| label: loading-packages
+#| warning: false
+
+# loading neccessary packages
+library(tidyverse)
+library(ggridges)
+library(here)
+library(corrplot)
+library(showtext)
+library(ggimage)
+```
+
+# 2. Adding custom fonts and loading ggplot2
+
+```{r}
+#| label: loading-font-adding-ggplot2
+
+# choosing font from google library
+font_add_google("EB Garamond", "garamond")
+# ensures text will be automatically rendered on new devices
+showtext_auto()
+
+library(ggplot2)
+```
+
