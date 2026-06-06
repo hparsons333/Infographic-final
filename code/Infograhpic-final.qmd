@@ -34,7 +34,7 @@ showtext_auto()
 library(ggplot2)
 ```
 
-#
+
 # 3. Visualizations
 
 ## 3a. Visualization #1: Scatterplot
@@ -183,3 +183,18 @@ corrplot(
          col = colour_set(100))
 ```
 
+# 4. Write up
+
+## General information about design and visualization
+
+### 4a. What patterns are you highlighting in each visualization? Why?
+
+### 4b. Outside of the data visualization, what aesthetic choices (e.g. color, font, arrangement) did you make and why? In what way do your choices contribute to a compelling or interesting narrative?
+
+## Sources and process
+
+### 4c. For each visualization, describe what examples inspired that visualization (cite the author)
+
+### 4d. Describe your coding process, for example (not the only options for this prompt): did you have to clean up/summarize the data before you started? Which geoms did you start with? What geoms did you end up using, and why?
+
+### 4e. Describe the tools you used: other people’s code? Google/StackOverflow? ChatGPT (with examples of prompts)?
