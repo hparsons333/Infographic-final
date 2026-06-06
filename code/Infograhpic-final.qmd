@@ -75,13 +75,6 @@ ggplot(
   mapping = aes(x = outside_eng,
                                       y = job_search)) +
   # first layer: scatterplot
-  geom_point(color = "turquoise4",
-              size = 4) +
-  # changing title and axes' titles
-  labs(title = "Affect of outside engagements on job search",
-       x = "Time spent at work or school (hours)",
-       y = "Time spent on job search (min)") +
-  # second layer: changing image for points
   geom_image(mapping = aes(
     # changing image to briefcase.png
     image = (
@@ -89,6 +82,10 @@ ggplot(
       here("images", "briefcase.png"))),
     # changing size of image
              size = 0.07) +
+  # changing title and axes' titles
+  labs(title = "Affect of outside engagements on job search",
+       x = "Time spent at work or school (hours)",
+       y = "Time spent on job search (min)") +
   # customizing theme
   theme_linedraw() +
   # customizing font
@@ -114,13 +111,6 @@ ggplot(
   mapping = aes(x = stress,
                                       y = job_search)) +
   # first layer: scatterplot
-  geom_point(color = "turquoise4",
-              size = 4) +
-  # changing title and axes' titles
-  labs(title = "Affect of outside engagements on job search",
-       x = "Level of stress (scale of 1-5)",
-       y = "Time spent on job search (min)") +
-  # second layer: changing image for points
   geom_image(mapping = aes(
     # changing image to briefcase.png
     image = (
@@ -128,6 +118,10 @@ ggplot(
       here("images", "briefcase.png"))),
     # changing size of image
              size = 0.07) +
+  # changing title and axes' titles
+  labs(title = "Affect of outside engagements on job search",
+       x = "Level of stress (scale of 1-5)",
+       y = "Time spent on job search (min)") +
   # customizing theme
   theme_linedraw() +
   # customizing font
@@ -251,14 +245,22 @@ corrplot(
 
 ### 4a. What patterns are you highlighting in each visualization? Why?
 
-First I wanted to highlight that both the time spent on outside engagements and the level of stress 
+First I wanted to highlight that the time spent on my job search appears lowest with an increase in both the time spent on outside engagements and the level of stress. However, to emphasize what I anecdotally noticed about the effect of stress, as well as how there appears to be less variation in the scatterplot for stress in comparison to the plot for time spent on outside engagements, I decided to create a ridgeline plot for the stress variable. 
 
 ### 4b. Outside of the data visualization, what aesthetic choices (e.g. color, font, arrangement) did you make and why? In what way do your choices contribute to a compelling or interesting narrative?
+
+For the first two scatterplots, I was inspired by the feedback I got in workshop on my affective visualization, and I used the "ggimage" package to use briefcase icons to represent the points. I feel like that allows the viewer to connect the data to the response variable it actually represents, which is the time I spent searching for jobs. Additionally I wanted to choose a new font that was elegant but simple, and would enhance the aesthetics of the plot without being too loud, so I used the "showtext" package to use the "EB garamond" font in all the plots.
 
 ## Sources and process
 
 ### 4c. For each visualization, describe what examples inspired that visualization (cite the author)
 
+
+
 ### 4d. Describe your coding process, for example (not the only options for this prompt): did you have to clean up/summarize the data before you started? Which geoms did you start with? What geoms did you end up using, and why?
 
+For the first two visualizations, I had to create an images folder and upload the briefcase image I wanted to use to represent the points directly into my github directory, and then clone the repository to Rstudio. For the ridgeline plot, I had to clean up the data by changing the values of the stress column from numbers to words, to allow the geom_density_ridges_gradient function to register the y-axis as categorical data. Overall, the coding process required a lot of trial and error, which included organizing the repository, cleaning and wrangling data, and attempting different geom functions before I found one that represented my data properly. 
+
 ### 4e. Describe the tools you used: other people’s code? Google/StackOverflow? ChatGPT (with examples of prompts)?
+
+I used google, youtube videos, and websites such as the r-graph-gallery and StackOverflow to help me figure out how to code the plots I was unfamiliar with and use the "ggimage" package. I also used old workshop and homework assignments to help me remember how to customize plots so that they fit the overall aesthetic of the infographic better. 
