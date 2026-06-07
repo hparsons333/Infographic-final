@@ -19,6 +19,7 @@ library(here)
 library(corrplot)
 library(showtext)
 library(ggimage)
+library(corrr)
 ```
 
 # 2. Adding custom fonts and loading ggplot2
@@ -210,6 +211,22 @@ names(job_search_corr) <- c("Job search", "Outside engagements", "Stress", "Slee
 ```
 
 ### Creating plot
+```{r}
+
+job_search_corrr <- job_search %>% 
+  correlate() %>% 
+  focus(job_search)
+
+job_search_corr %>% mutate()
+```
+```{r}
+job_search_corrr %>% 
+  mutate(term = factor(term, levels = term[order(job_search)])) %>%  # Order by correlation strength
+  ggplot(aes(x = term, y = job_search)) +
+    geom_bar(stat = "identity") +
+    ylab("Correlation with time spent on job search") +
+    xlab("Variable")
+```
 
 ```{r}
 #| label: fourth-visualization
@@ -258,6 +275,7 @@ For the first two scatterplots, I was inspired by the feedback I got in workshop
 For the first two visualizations, I was inspired by "The Chonk Index: Palmer Penguins' Body Mass," plot created by Ijeamaka Anyene, where icons of different penguin species are used to represent their differences in body mass.]
 
 For my ridgeline plot, I was inspired by Cedric Sherer's visualization of the bill ratio of different penguin species from the Palmer Penguins dataset.
+
 
 ### 4d. Describe your coding process, for example (not the only options for this prompt): did you have to clean up/summarize the data before you started? Which geoms did you start with? What geoms did you end up using, and why?
 
