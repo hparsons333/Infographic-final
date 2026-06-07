@@ -255,7 +255,9 @@ For the first two scatterplots, I was inspired by the feedback I got in workshop
 
 ### 4c. For each visualization, describe what examples inspired that visualization (cite the author)
 
+For the first two visualizations, I was inspired by "The Chonk Index: Palmer Penguins' Body Mass," plot created by Ijeamaka Anyene, where icons of different penguin species are used to represent their differences in body mass.]
 
+For my ridgeline plot, I was inspired by Cedric Sherer's visualization of the bill ratio of different penguin species from the Palmer Penguins dataset.
 
 ### 4d. Describe your coding process, for example (not the only options for this prompt): did you have to clean up/summarize the data before you started? Which geoms did you start with? What geoms did you end up using, and why?
 
