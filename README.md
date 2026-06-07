@@ -19,3 +19,5 @@ There are images `images` folder in which all uploaded images are stored.
 ## Rendered output
 
 The rendered .pdf for the infographic project is [here](https://github.com/hparsons333/Infographic-final/blob/main/code/Infograhpic-final.pdf)
+
+The final infographic is [here]()
