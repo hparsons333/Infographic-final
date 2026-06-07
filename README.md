@@ -14,7 +14,9 @@ There is a `data` folder in which data files are stored.
 
 There is a `code` folder in which all code for linear models are stored.
 
-There are images `images` folder in which all uploaded images are stored.
+There is an `images` folder in which all uploaded images are stored.
+
+There is an `images-to-export` folder in the `code` folder in which all exported images are stored.
 
 ## Rendered output
 
