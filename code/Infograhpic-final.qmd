@@ -2,6 +2,7 @@
 title: "Infographic"
 author: "Helena Parsons"
 format: pdf
+toc: true
 date: "2026-06-04"
 ---
 
@@ -38,7 +39,6 @@ showtext_auto()
 library(ggplot2)
 ```
 
-
 # 3. Visualizations
 
 ## Reading data
@@ -57,6 +57,7 @@ job_search <-
          # csv: personal-data
          "personal-data.csv"))
 ```
+
 ## 3a. Visualization #1: Scatterplot
 
 ### Creating plot
@@ -156,6 +157,7 @@ ggsave(
 ## 3c. Visualization #3: Ridgeline plot
 
 ### Cleaning and wrangling data
+
 ```{r}
 #| label: wrangling-data-for-ridgeline
 #| message: false
@@ -226,6 +228,7 @@ ggsave(
 ## 3d. Visualization #4: Correlation barplot
 
 ### Cleaning and wrangling data
+
 ```{r}
 #| message: true
 #| warning: false
@@ -253,22 +256,28 @@ job_search_corr_clean <-
     term == "social_media" ~ "Social media use",
     term == "day_to_grad" ~ "Days until graduation"))
 ```
+
 ### Creating plot
+
 ```{r}
 #| message: false
 #| warning: false
 
 # mutating df
 plot_4 <- job_search_corr_clean %>% 
-  # ordering data by correlation strength to job_search
-  mutate(term = factor(term, levels = term[order(job_search)])) %>%
+  # ordering data by correlation strength
+  mutate(
+    # ordering levels by term
+    term = factor(term,
+                  # levels are ordered by correlation strength to job_search
+                  levels = term[order(job_search)])) %>%
   # creating plot
   # base layer: ggplot
   ggplot(
     # x-axis: term or explanatory variable
     # y-axis: correlation to response variable (job_search)
     aes(x = term, y = job_search)) +
-  # first layer: bar plot
+  # first layer: barplot
     geom_bar(
       # using y-axis as dependent variable 
       stat = "identity",
@@ -303,7 +312,7 @@ ggsave(
 
 ### 4a. What patterns are you highlighting in each visualization? Why?
 
-First I wanted to highlight that the time spent on my job search appears lowest with an increase in both the time spent on outside engagements and the level of stress. However, to emphasize what I anecdotally noticed about the effect of stress, as well as how there appears to be less variation in the scatterplot for stress in comparison to the plot for time spent on outside engagements, I decided to create a ridgeline plot for the stress variable. Finally, I wanted to visualize which variable actually had the strongest correlation to the response variable, so I created a correlation barplot. 
+First I wanted to highlight that the time spent on my job search appears lowest with an increase in both the time spent on outside engagements and the level of stress. However, to emphasize what I anecdotally noticed about the effect of stress, as well as how there appears to be less variation in the scatterplot for stress in comparison to the plot for time spent on outside engagements, I decided to create a ridgeline plot for the stress variable. Finally, I wanted to visualize which variable actually had the strongest correlation to the response variable, so I created a correlation barplot.
 
 ### 4b. Outside of the data visualization, what aesthetic choices (e.g. color, font, arrangement) did you make and why? In what way do your choices contribute to a compelling or interesting narrative?
 
@@ -313,15 +322,15 @@ For the first two scatterplots, I was inspired by the feedback I got in workshop
 
 ### 4c. For each visualization, describe what examples inspired that visualization (cite the author)
 
-For the first two visualizations, I was inspired by "The Chonk Index: Palmer Penguins' Body Mass," plot created by Ijeamaka Anyene, where icons of different penguin species are used to represent their differences in body mass.]
+For the first two visualizations, I was inspired by "The Chonk Index: Palmer Penguins' Body Mass," plot created by Ijeamaka Anyene, where icons of different penguin species are used to represent their differences in body mass.
 
-For my ridgeline plot, I was inspired by Cedric Sherer's visualization of the bill ratio of different penguin species from the Palmer Penguins dataset.
+For my ridgeline plot, I was inspired by Cédric Sherer's visualization of the bill ratio of different penguin species from the Palmer Penguins dataset.
 
-For my correlation barplot, I was inspired by the Manasseh Oduor's visualization of attendance patterns by university, although they used a violin plot and a categorical variable, but I liked how it clearly displayed how one relationship between variables stood out against the others. 
+For my correlation barplot, I was inspired by the Manasseh Oduor's visualization of attendance patterns by university, although they used a violin plot and a categorical variable, but I liked how it clearly displayed how one relationship between variables stood out against the others.
 
 ### 4d. Describe your coding process, for example (not the only options for this prompt): did you have to clean up/summarize the data before you started? Which geoms did you start with? What geoms did you end up using, and why?
 
-For the first two visualizations, I had to create an images folder and upload the briefcase image I wanted to use to represent the points directly into my github directory, and then clone the repository to Rstudio. For the ridgeline plot, I had to clean up the data by changing the values of the stress column from numbers to words, to allow the geom_density_ridges_gradient function to register the y-axis as categorical data. Finally, for the correlation barplot I had to create a new object to determine the correlation between the response variable with each explanatory variable, and then I created the barplot and ordered it from most negative to most positive so that it was more intuitive to understand.
+For the first two visualizations, I had to create an images folder and upload the briefcase image I wanted to use to represent the points directly into my github directory, and then clone the repository to RStudio. For the ridgeline plot, I had to clean up the data by changing the values of the stress column from numbers to words, to allow the geom_density_ridges_gradient function to register the y-axis as categorical data. Finally, for the correlation barplot I had to create a new object to determine the correlation between the response variable with each explanatory variable, and then I created the barplot and ordered it from most negative to most positive so that it was more intuitive to understand.
 
 ### 4e. Describe the tools you used: other people’s code? Google/StackOverflow? ChatGPT (with examples of prompts)?
 

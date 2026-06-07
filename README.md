@@ -20,4 +20,4 @@ There are images `images` folder in which all uploaded images are stored.
 
 The rendered .pdf for the infographic project is [here](https://github.com/hparsons333/Infographic-final/blob/main/code/Infograhpic-final.pdf)
 
-The final infographic is [here]()
+The final infographic is [here](https://github.com/hparsons333/Infographic-final/blob/main/final-infographic/What%20factors%20influence%20the%20time%20I%20spend%20on%20my%20job%20search.pdf)
