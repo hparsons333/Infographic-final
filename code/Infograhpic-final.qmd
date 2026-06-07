@@ -12,7 +12,7 @@ date: "2026-06-04"
 #| message: false
 #| warning: false
 
-# loading neccessary packages
+# loading necessary packages
 library(tidyverse)
 library(ggridges)
 library(here)
@@ -41,9 +41,7 @@ library(ggplot2)
 
 # 3. Visualizations
 
-## 3a. Visualization #1: Scatterplot
-
-### Reading data
+## Reading data
 
 ```{r}
 #| label: reading-data
@@ -59,6 +57,7 @@ job_search <-
          # csv: personal-data
          "personal-data.csv"))
 ```
+## 3a. Visualization #1: Scatterplot
 
 ### Creating plot
 
@@ -96,7 +95,9 @@ ggplot(
          panel.grid.minor = element_blank())
 ```
 
-## 3d. Visualization #2: Scatterplot 2 for stress
+## 3b. Visualization #2: Scatterplot 2 for stress
+
+### Creating plot
 
 ```{r}
 #| label: second-visualization
@@ -120,7 +121,7 @@ ggplot(
     # changing size of image
              size = 0.07) +
   # changing title and axes' titles
-  labs(title = "Affect of outside engagements on job search",
+  labs(title = "Affect of stress on job search",
        x = "Level of stress (scale of 1-5)",
        y = "Time spent on job search (min)") +
   # customizing theme
@@ -192,35 +193,29 @@ ggplot(
          panel.grid.minor = element_blank())
 ```
 
-## 3d. Visualization #4: Correlogram
+## 3d. Visualization #4: Correlation barplot
 
-### Wrangling data
+### Creating plot
 ```{r}
-#| label: wrangling-data-for-correlogram
-#| message: false
+#| message: true
 #| warning: false
 
 # creating new object
 job_search_corr <- 
   # df: job_search
-  job_search |>
-  # getting rid of date column
-  select(job_search, outside_eng, stress, sleep, social_media, day_to_grad)
-# changing names of columns 
-names(job_search_corr) <- c("Job search", "Outside engagements", "Stress", "Sleep", "Social media usage", "Days till graduation")
-```
-
-### Creating plot
-```{r}
-
-job_search_corrr <- job_search %>% 
+  job_search %>% 
+  # calculating correlation between variables
   correlate() %>% 
+  # calculating correlation only for response variable
   focus(job_search)
 
-job_search_corrr_clean <- job_search_corrr |>
+# creating new object
+job_search_corr_clean <- 
+  # df: job_search_corr
+  job_search_corr |>
   # mutating data
   mutate(
-    # changing values to be words in stress column
+    # cleaning names in term column
     term = case_when (
     term == "outside_eng" ~ "Outside engagements",
     term == "stress" ~ "Stress",
@@ -228,21 +223,40 @@ job_search_corrr_clean <- job_search_corrr |>
     term == "social_media" ~ "Social media use",
     term == "day_to_grad" ~ "Days until graduation"))
 ```
+
 ```{r}
-job_search_corrr_clean %>% 
-  mutate(term = factor(term, levels = term[order(job_search)])) %>%  # Order by correlation strength
-  ggplot(aes(x = term, y = job_search)) +
-    geom_bar(stat = "identity",
+#| message: false
+#| warning: false
+
+# mutating df
+job_search_corr_clean %>% 
+  # ordering data by correlation strength to job_search
+  mutate(term = factor(term, levels = term[order(job_search)])) %>%
+  # creating plot
+  # base layer: ggplot
+  ggplot(
+    # x-axis: term or explanatory variable
+    # y-axis: correlation to response variable (job_search)
+    aes(x = term, y = job_search)) +
+  # first layer: bar plot
+    geom_bar(
+      # using y-axis as dependent variable 
+      stat = "identity",
+             # changing color of bars
              fill = "turquoise4") +
-  theme(text = element_text(family = "garamond")) +
+  # changing title and axes' titles
     labs(title = "Correlation strength is greatest with outside engagements",
          x = "Variable",
          y = "Correlation with time spent on job search") +
+  # custom theme
   theme_linedraw() +
+  # changing font
+  theme(text = element_text(family = "garamond")) +
+  # getting rid of gridlines
     theme(panel.grid.major = element_blank(),
          panel.grid.minor = element_blank())
-  
 ```
+
 
 
 # 4. Write up
@@ -251,7 +265,7 @@ job_search_corrr_clean %>%
 
 ### 4a. What patterns are you highlighting in each visualization? Why?
 
-First I wanted to highlight that the time spent on my job search appears lowest with an increase in both the time spent on outside engagements and the level of stress. However, to emphasize what I anecdotally noticed about the effect of stress, as well as how there appears to be less variation in the scatterplot for stress in comparison to the plot for time spent on outside engagements, I decided to create a ridgeline plot for the stress variable. 
+First I wanted to highlight that the time spent on my job search appears lowest with an increase in both the time spent on outside engagements and the level of stress. However, to emphasize what I anecdotally noticed about the effect of stress, as well as how there appears to be less variation in the scatterplot for stress in comparison to the plot for time spent on outside engagements, I decided to create a ridgeline plot for the stress variable. Finally, I wanted to visualize which 
 
 ### 4b. Outside of the data visualization, what aesthetic choices (e.g. color, font, arrangement) did you make and why? In what way do your choices contribute to a compelling or interesting narrative?
 
