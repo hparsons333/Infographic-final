@@ -217,44 +217,33 @@ job_search_corrr <- job_search %>%
   correlate() %>% 
   focus(job_search)
 
-job_search_corr %>% mutate()
+job_search_corrr_clean <- job_search_corrr |>
+  # mutating data
+  mutate(
+    # changing values to be words in stress column
+    term = case_when (
+    term == "outside_eng" ~ "Outside engagements",
+    term == "stress" ~ "Stress",
+    term == "sleep" ~ "Sleep",
+    term == "social_media" ~ "Social media use",
+    term == "day_to_grad" ~ "Days until graduation"))
 ```
 ```{r}
-job_search_corrr %>% 
+job_search_corrr_clean %>% 
   mutate(term = factor(term, levels = term[order(job_search)])) %>%  # Order by correlation strength
   ggplot(aes(x = term, y = job_search)) +
-    geom_bar(stat = "identity") +
-    ylab("Correlation with time spent on job search") +
-    xlab("Variable")
+    geom_bar(stat = "identity",
+             fill = "turquoise4") +
+  theme(text = element_text(family = "garamond")) +
+    labs(title = "Correlation strength is greatest with outside engagements",
+         x = "Variable",
+         y = "Correlation with time spent on job search") +
+  theme_linedraw() +
+    theme(panel.grid.major = element_blank(),
+         panel.grid.minor = element_blank())
+  
 ```
 
-```{r}
-#| label: fourth-visualization
-#| message: false
-#| warning: false
-
-# creating new object
-colour_set <- 
-  # choosing colors to be used in correlogram
-  colorRampPalette(colors = c("#8B0000",  "#CD0000", "#BF3EFF", "#009ACD", "#00688B"))
-
-# base layer: correlogram
-corrplot(
-  # correlation plot function
-  cor(
-    # df: job_search_corr
-    job_search_corr),
-  # changing title
-         title = "Comparing effect of all variables",
-  # using only lower half of correlgram
-         type = "lower",
-  # changing text size
-         tl.cex = 0.7,
-  # changing text color
-         tl.col = "darkblue",
-  # changing colors used in plot
-         col = colour_set(100))
-```
 
 # 4. Write up
 
