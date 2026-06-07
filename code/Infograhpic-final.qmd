@@ -67,7 +67,7 @@ job_search <-
 #| warning: false
 
 # base layer: ggplot
-ggplot(
+plot_1 <- ggplot(
   # df: job_search
   data = job_search,
   # x-axis : time spent on outside engagements
@@ -93,6 +93,16 @@ ggplot(
   # getting rid of gridlines
   theme(panel.grid.major = element_blank(),
          panel.grid.minor = element_blank())
+
+# displaying plot
+plot_1 
+
+# saving plot
+ggsave(
+  # specifying folder and saving as pdf
+  "images-to-export/scatterplot_1.pdf",
+  # plot: plot_1
+  plot = plot_1)
 ```
 
 ## 3b. Visualization #2: Scatterplot 2 for stress
@@ -105,7 +115,7 @@ ggplot(
 #| warning: false
 
 # base layer: ggplot
-ggplot(
+plot_2 <- ggplot(
   # df: job_search
   data = job_search,
   # x-axis : level of stress
@@ -131,11 +141,21 @@ ggplot(
   # getting rid of gridlines
   theme(panel.grid.major = element_blank(),
          panel.grid.minor = element_blank())
+
+# displaying plot
+plot_2
+
+# saving plot
+ggsave(
+  # specifying folder
+  "images-to-export/scatterplot2.pdf",
+  # plot: plot_1
+  plot = plot_2)
 ```
 
 ## 3c. Visualization #3: Ridgeline plot
 
-### Wrangling data
+### Cleaning and wrangling data
 ```{r}
 #| label: wrangling-data-for-ridgeline
 #| message: false
@@ -166,7 +186,7 @@ job_search_clean <-
 #| warning: false
 
 # base layer: ggplot
-ggplot(
+plot_3 <- ggplot(
   # df: job_search_clean
   data = job_search_clean,
   # x-axis: time spent on job search
@@ -191,11 +211,21 @@ ggplot(
   # getting rid of gridlines
   theme(panel.grid.major = element_blank(),
          panel.grid.minor = element_blank())
+
+# displaying plot
+plot_3
+
+# saving plot
+ggsave(
+  # specifying folder and saving as pdf
+  "images-to-export/ridgelinegraph.pdf",
+  # plot: plot_3
+  plot = plot_3)
 ```
 
 ## 3d. Visualization #4: Correlation barplot
 
-### Creating plot
+### Cleaning and wrangling data
 ```{r}
 #| message: true
 #| warning: false
@@ -223,13 +253,13 @@ job_search_corr_clean <-
     term == "social_media" ~ "Social media use",
     term == "day_to_grad" ~ "Days until graduation"))
 ```
-
+### Creating plot
 ```{r}
 #| message: false
 #| warning: false
 
 # mutating df
-job_search_corr_clean %>% 
+plot_4 <- job_search_corr_clean %>% 
   # ordering data by correlation strength to job_search
   mutate(term = factor(term, levels = term[order(job_search)])) %>%
   # creating plot
@@ -255,9 +285,17 @@ job_search_corr_clean %>%
   # getting rid of gridlines
     theme(panel.grid.major = element_blank(),
          panel.grid.minor = element_blank())
+
+# displaying plot
+plot_4
+
+# saving plot
+ggsave(
+  # specifying folder and saving as pdf
+  "images-to-export/barplot.pdf",
+  # plot: plot_1
+  plot = plot_4)
 ```
-
-
 
 # 4. Write up
 
@@ -265,7 +303,7 @@ job_search_corr_clean %>%
 
 ### 4a. What patterns are you highlighting in each visualization? Why?
 
-First I wanted to highlight that the time spent on my job search appears lowest with an increase in both the time spent on outside engagements and the level of stress. However, to emphasize what I anecdotally noticed about the effect of stress, as well as how there appears to be less variation in the scatterplot for stress in comparison to the plot for time spent on outside engagements, I decided to create a ridgeline plot for the stress variable. Finally, I wanted to visualize which 
+First I wanted to highlight that the time spent on my job search appears lowest with an increase in both the time spent on outside engagements and the level of stress. However, to emphasize what I anecdotally noticed about the effect of stress, as well as how there appears to be less variation in the scatterplot for stress in comparison to the plot for time spent on outside engagements, I decided to create a ridgeline plot for the stress variable. Finally, I wanted to visualize which variable actually had the strongest correlation to the response variable, so I created a correlation barplot. 
 
 ### 4b. Outside of the data visualization, what aesthetic choices (e.g. color, font, arrangement) did you make and why? In what way do your choices contribute to a compelling or interesting narrative?
 
@@ -279,11 +317,12 @@ For the first two visualizations, I was inspired by "The Chonk Index: Palmer Pen
 
 For my ridgeline plot, I was inspired by Cedric Sherer's visualization of the bill ratio of different penguin species from the Palmer Penguins dataset.
 
+For my correlation barplot, I was inspired by the Manasseh Oduor's visualization of attendance patterns by university, although they used a violin plot and a categorical variable, but I liked how it clearly displayed how one relationship between variables stood out against the others. 
 
 ### 4d. Describe your coding process, for example (not the only options for this prompt): did you have to clean up/summarize the data before you started? Which geoms did you start with? What geoms did you end up using, and why?
 
-For the first two visualizations, I had to create an images folder and upload the briefcase image I wanted to use to represent the points directly into my github directory, and then clone the repository to Rstudio. For the ridgeline plot, I had to clean up the data by changing the values of the stress column from numbers to words, to allow the geom_density_ridges_gradient function to register the y-axis as categorical data. Overall, the coding process required a lot of trial and error, which included organizing the repository, cleaning and wrangling data, and attempting different geom functions before I found one that represented my data properly. 
+For the first two visualizations, I had to create an images folder and upload the briefcase image I wanted to use to represent the points directly into my github directory, and then clone the repository to Rstudio. For the ridgeline plot, I had to clean up the data by changing the values of the stress column from numbers to words, to allow the geom_density_ridges_gradient function to register the y-axis as categorical data. Finally, for the correlation barplot I had to create a new object to determine the correlation between the response variable with each explanatory variable, and then I created the barplot and ordered it from most negative to most positive so that it was more intuitive to understand.
 
 ### 4e. Describe the tools you used: other people’s code? Google/StackOverflow? ChatGPT (with examples of prompts)?
 
-I used google, youtube videos, and websites such as the r-graph-gallery and StackOverflow to help me figure out how to code the plots I was unfamiliar with and use the "ggimage" package. I also used old workshop and homework assignments to help me remember how to customize plots so that they fit the overall aesthetic of the infographic better. 
+I used google, youtube videos, and websites such as the r-graph-gallery and StackOverflow to help me figure out how to code the plots I was unfamiliar with and use the "ggimage" package. I also used old workshop and homework assignments to help me remember how to customize plots so that they fit the overall aesthetic of the infographic better. StackOverflow was extremely helpful with creating the correlation barplot, as it provided clear examples with annotations on how to mutate and visualize the data.
