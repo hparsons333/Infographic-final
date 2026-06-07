@@ -45,7 +45,6 @@ library(ggplot2)
 
 ```{r}
 #| label: reading-data
-#| message: false
 #| warning: false
 
 # creating new object
@@ -160,7 +159,6 @@ ggsave(
 
 ```{r}
 #| label: wrangling-data-for-ridgeline
-#| message: false
 #| warning: false
 
 # creating new object
@@ -260,7 +258,6 @@ job_search_corr_clean <-
 ### Creating plot
 
 ```{r}
-#| message: false
 #| warning: false
 
 # mutating df
