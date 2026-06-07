@@ -31,7 +31,7 @@ library(corrr)
 
 # choosing font from google library
 font_add_google("EB Garamond", "garamond")
-# ensures text will be automatically rendered on new devices
+# ensuring text will be automatically rendered on new devices
 showtext_auto()
 
 # loading ggplot2 library
@@ -276,7 +276,7 @@ plot_4 <- job_search_corr_clean %>%
              fill = "turquoise4") +
   # changing title and axes' titles
     labs(title = "Correlation strength is greatest with outside engagements",
-         x = "Variable",
+         x = "Explanatory Variable",
          y = "Correlation with time spent on job search") +
   # custom theme
   theme_linedraw() +
